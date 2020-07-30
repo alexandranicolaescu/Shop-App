@@ -35,7 +35,7 @@ const CartScreen = props => {
                     title = "Order Now" 
                     disabled = {cartItems.length === 0}
                     color = {Colors.accent}
-                    onpress = {() => {
+                    onPress = {() => {
                         dispatch(orderActions.addOrder(cartItems, cartTotalAmount));
                     }}
                 />
@@ -56,6 +56,10 @@ const CartScreen = props => {
             />
         </View>
     );
+};
+
+CartScreen.navigationOptions = {
+    headerTitle: 'Your Cart'
 };
 
 const styles = StyleSheet.create({
