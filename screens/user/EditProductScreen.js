@@ -1,9 +1,8 @@
 import React, { useEffect, useCallback, useReducer} from 'react';
 import {
-    Text, 
     View, 
     StyleSheet, 
-    TextInput, 
+    KeyboardAvoidingView,
     ScrollView, 
     Platform,
     Alert
@@ -117,63 +116,69 @@ const EditProductScreen = props => {
   );
 
     return (
-        <ScrollView>
-            <View style ={styles.form}>
-                <Input
-                    id = 'title'
-                    label = "Title"
-                    errorText = "Please enter a valid title!"
-                    keyboardType = "default"
-                    autoCapitalize = "sentences"
-                    autoCorrect
-                    returnKeyType = "next"
-                    onInputChange = {inputChangeHandler}
-                    initialValue = {editedProduct ? editedProduct.title : ''}
-                    initiallyValid = {!!editedProduct}
-                    required
-                />
-                <Input
-                    id = 'imageUrl'
-                    label = "Image Url"
-                    errorText = "Please enter a valid image URL!"
-                    keyboardType = "default"
-                    returnKeyType = "next"
-                    onInputChange = {inputChangeHandler}
-                    initialValue = {editedProduct ? editedProduct.imageUrl : ''}
-                    initiallyValid = {!!editedProduct}
-                    required
-                />
-
-                {editedProduct ? null : (                                                               //pretul se actualizeaza doar daca suntem in add mode, nu merge in mod de editare, altfel ar trebui schimbata logica de la totalul cosului etc
+        <KeyboardAvoidingView 
+            style ={{flex:1}}
+            behavoir = "padding" 
+            keyboardVerticalOffset = {100}
+        >
+            <ScrollView>
+                <View style ={styles.form}>
                     <Input
-                        id = 'price'
-                        label = "Price"
-                        errorText = "Please enter a valid price!"
-                        keyboardType = "decimal-pad"
+                        id = 'title'
+                        label = "Title"
+                        errorText = "Please enter a valid title!"
+                        keyboardType = "default"
+                        autoCapitalize = "sentences"
+                        autoCorrect
                         returnKeyType = "next"
                         onInputChange = {inputChangeHandler}
+                        initialValue = {editedProduct ? editedProduct.title : ''}
+                        initiallyValid = {!!editedProduct}
                         required
-                        min = {0.1}
-                />
-                )}
+                    />
+                    <Input
+                        id = 'imageUrl'
+                        label = "Image Url"
+                        errorText = "Please enter a valid image URL!"
+                        keyboardType = "default"
+                        returnKeyType = "next"
+                        onInputChange = {inputChangeHandler}
+                        initialValue = {editedProduct ? editedProduct.imageUrl : ''}
+                        initiallyValid = {!!editedProduct}
+                        required
+                    />
 
-                <Input
-                    id = 'description'
-                    label = "Description"
-                    errorText = "Please enter a valid description!"
-                    keyboardType = "default"
-                    autoCapitalize = "sentences"
-                    autoCorrect
-                    multiline
-                    numberOfLines = {3}
-                    onInputChange = {inputChangeHandler}
-                    initialValue = {editedProduct ? editedProduct.description : ''}
-                    initiallyValid = {!!editedProduct}
-                    required
-                    minLength ={5}
-                />
-            </View>
-        </ScrollView>
+                    {editedProduct ? null : (                                                               //pretul se actualizeaza doar daca suntem in add mode, nu merge in mod de editare, altfel ar trebui schimbata logica de la totalul cosului etc
+                        <Input
+                            id = 'price'
+                            label = "Price"
+                            errorText = "Please enter a valid price!"
+                            keyboardType = "decimal-pad"
+                            returnKeyType = "next"
+                            onInputChange = {inputChangeHandler}
+                            required
+                            min = {0.1}
+                    />
+                    )}
+
+                    <Input
+                        id = 'description'
+                        label = "Description"
+                        errorText = "Please enter a valid description!"
+                        keyboardType = "default"
+                        autoCapitalize = "sentences"
+                        autoCorrect
+                        multiline
+                        numberOfLines = {3}
+                        onInputChange = {inputChangeHandler}
+                        initialValue = {editedProduct ? editedProduct.description : ''}
+                        initiallyValid = {!!editedProduct}
+                        required
+                        minLength ={5}
+                    />
+                </View>
+            </ScrollView>
+        </KeyboardAvoidingView>
     );
 };
 
