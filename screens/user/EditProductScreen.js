@@ -11,6 +11,7 @@ import {
 import {useSelector, useDispatch} from 'react-redux';
 
 import {HeaderButtons, Item} from 'react-navigation-header-buttons';
+import Input from '../../components/UI/Input';
 import HeaderButton from '../../components/UI/HeaderButton';
 import * as productsActions from '../../store/actions/products';
 
@@ -120,52 +121,43 @@ const EditProductScreen = props => {
     return (
         <ScrollView>
             <View style ={styles.form}>
-                <View style = {styles.formControl}>
-                    <Text style = {styles.label}> Title </Text>
-                    <TextInput 
-                        style = {styles.input}
-                        value = {formState.inputValues.title}
-                        onChangeText = {textChangeHandler.bind(this, 'title')}
-                        keyboardType = 'default'
-                        autoCapitalize = 'sentences'
-                        autoCorrect
-                        autoFocus
-                        returnKeyType = 'next'
-                        onEndEditing = {() => console.log('onEndEditing')}
-                        onSubmitEditing = {() => console.log('onSumbitEditing')}
-                     />
-                     {!formState.inputValidities.title && <Text>Please enter a valid title!</Text>}
-                </View>
-
-                <View style = {styles.formControl}>
-                    <Text style = {styles.label}> ImageUrl </Text>
-                    <TextInput 
-                        style = {styles.input} 
-                        value = {formState.inputValues.imageUrl}
-                        onChangeText = {textChangeHandler.bind(this, 'imageUrl')}
-                    />
-                </View>
+                <Input
+                    label = "Title"
+                    errorText = "Please enter a valid title!"
+                    keyboardType = "default"
+                    autoCapitalize = "sentences"
+                    autoCorrect
+                    autoFocus
+                    returnKeyType = "next"
+                />
+                <Input
+                    label = "Image Url"
+                    errorText = "Please enter a valid image URL!"
+                    keyboardType = "default"
+                    autoFocus
+                    returnKeyType = "next"
+                />
 
                 {editedProduct ? null : (                                                               //pretul se actualizeaza doar daca suntem in add mode, nu merge in mod de editare, altfel ar trebui schimbata logica de la totalul cosului etc
-                    <View style = {styles.formControl}>
-                        <Text style = {styles.label}> Price </Text>
-                        <TextInput 
-                            style = {styles.input} 
-                            value = {formState.inputValues.price}
-                            onChangeText = {textChangeHandler.bind(this, 'price')}
-                            keyboardType = 'decimal-pad'
-                        />
-                    </View>
+                    <Input
+                        label = "Price"
+                        errorText = "Please enter a valid price!"
+                        keyboardType = "decimal-pad"
+                        autoFocus
+                        returnKeyType = "next"
+                />
                 )}
 
-                <View style = {styles.formControl}>
-                    <Text style = {styles.label}> Description </Text>
-                    <TextInput 
-                        style = {styles.input}
-                        value = {formState.inputValues.description}
-                        onChangeText = {textChangeHandler.bind(this, 'description')} 
+                    <Input
+                        label = "Description"
+                        errorText = "Please enter a valid description!"
+                        keyboardType = "default"
+                        autoCapitalize = "sentences"
+                        autoCorrect
+                        autoFocus
+                        multiline
+                        numberOfLines = {3}
                     />
-                </View>
             </View>
         </ScrollView>
     );
@@ -192,22 +184,6 @@ EditProductScreen.navigationOptions = navData => {
 const styles = StyleSheet.create({
     form: {
         margin: 20
-    },
-
-    formControl: {
-        width: '100%'
-    },
-
-    label: {
-        fontFamily: 'open-sans-bold',
-        marginVertical: 8
-    },
-
-    input: {
-        paddingHorizontal: 2,
-        paddingVertical: 5,
-        borderBottomColor: '#ccc',
-        borderBottomWidth: 1
     }
 });
 
