@@ -8,28 +8,37 @@ export const SET_PRODUCTS = 'SET_PRODUCTS';
 export const fetchProducts = () => {
     return async dispatch => {
         //any async code you want can be executed
-        const response = await fetch('https://udemy-react-native-cours-357c0.firebaseio.com/products.json', {
-            method: 'GET',                 //default e get, merge sa nu-l mai pui
-        });
+        try{
+            const response = await fetch('https://udemy-react-native-cours-357c0.firebaseio.com/products.json', {
+                method: 'GET',                 //default e get, merge sa nu-l mai pui
+            });
 
-        const resData = await response.json();
-        const loadedProducts = [];
-            for(const key in resData){
-                loadedProducts.push(
-                    new Product(
-                        key, 
-                        'u1', 
-                        resData[key].title, 
-                        resData[key].imageUrl, 
-                        resData[key].description,
-                        resData[key].price
-                        )
-                );
+            if(!response.ok) {
+                throw new Error('Something went wrong!');
             }
-        dispatch({
-            type:SET_PRODUCTS, 
-            products: loadedProducts
-        });
+
+            const resData = await response.json();
+            const loadedProducts = [];
+                for(const key in resData){
+                    loadedProducts.push(
+                        new Product(
+                            key, 
+                            'u1', 
+                            resData[key].title, 
+                            resData[key].imageUrl, 
+                            resData[key].description,
+                            resData[key].price
+                            )
+                    );
+                }
+            dispatch({
+                type:SET_PRODUCTS, 
+                products: loadedProducts
+            });
+        } catch (err) {
+            throw err; 
+            //send the data to an analytics server to solve the error 
+        }
     };
 };
 
